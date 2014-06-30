@@ -181,18 +181,20 @@ EOF
 	kde_ignorelist=`echo "${ignorelist}" | sed -e 's/\*\./\./g'`
 	
 	# wait if no users are logged in (up to 5 minutes)
-	connect_timer=0
-	while [ -z "$(users)" -a $connect_timer -lt 300 ]
-	do
-		let connect_timer=connect_timer+10
-		sleep 10
-	done
+	#connect_timer=0
+	#while [ -z "$(users)" -a $connect_timer -lt 300 ]
+	#do
+	#	let connect_timer=connect_timer+10
+	#    logger -p user.notice -t $log_tag "sleeping for 10 seconds"
+	#	sleep 10
+	#done
 	
 	# a user just logged in; give some time to settle things down
-	if [ $connect_timer -gt 0 -a $connect_timer -lt 300 ]
-	then
-		sleep 15
-	fi
+	#if [ $connect_timer -gt 0 -a $connect_timer -lt 300 ]
+	#then
+	#    logger -p user.notice -t $log_tag "sleeping for 15 seconds"
+	#	sleep 15
+	#fi
 
 	machineid=$(dbus-uuidgen --get)
 	for user in `users | tr ' ' '\n' | sort --unique`
