@@ -65,6 +65,7 @@ then
 	
 	# strip out anything hostile to the file system
 	networkID=`echo "$networkID" | tr -c '[:alnum:]-' '_' | sed 's/.$/\n/'`
+	logger -p user.notice -t $log_tag "network ID: $networkID"
 
 	conf="$conf_dir/$networkID.conf"
 
@@ -121,9 +122,11 @@ EOF
 	fi
 
 	# read configfile
+	logger -p user.notice -t $log_tag "reading configuration file '$conf'"
 	source "$conf"
 
 	# select mode using enabled value
+	logger -p user.notice -t $log_tag "selecting mode"
 	if [ "$enabled" == 'true' -o "$enabled" == '1' -o "$enabled" == 'yes' ]
 	then
 		enabled='true'              # gnome enable
