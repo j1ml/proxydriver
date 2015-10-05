@@ -19,5 +19,6 @@ For each new SSID, after a first connection, complete the generated file
 proxy should be set.
 
 Original home page: http://marin.jb.free.fr/proxydriver/
+
 Original Sourceforge site: http://sourceforge.net/projects/proxydriver/
 
