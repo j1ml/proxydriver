@@ -19,7 +19,7 @@
 # To install this file, place it in directory (with +x mod):
 # /etc/NetworkManager/dispatcher.d
 #
-# For each new SSID, after a first connection, complete the genreated file
+# For each new SSID, after a first connection, complete the generated file
 # /etc/proxydriver.d/<ssid_name>.conf and then re-connect to AP, proxy is now set!
 #
 
