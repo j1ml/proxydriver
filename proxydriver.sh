@@ -48,7 +48,7 @@ then
 	if type -P nmcli &>/dev/null
 	then
 		# retrieve connection/vpn name
-		networkID=`nmcli -t -f name,device,type con show | \
+		networkID=`nmcli -t -f name,device,type con show --active | \
 			awk -F':' "BEGIN { device=\"$1\"; event=\"$2\" } \
 				event == \"up\" && \\$2 == device && \\$3 != \"vpn\" { print \\$1 } \
 				event == \"vpn-up\" && \\$3 == \"vpn\" { print \"vpn_\" \\$1 }"`
