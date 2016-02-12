@@ -81,6 +81,12 @@ then
 # configuration file for proxydriver
 # file auto-generated, please complete me!
 
+# manage proxy configuration for network interface when an event is dispatched
+# for the current network configuration
+# if value is ['true'|'1'|'yes'] then proxy configuration will be updated
+# else the proxy configuration will not be updated
+managed='true'
+
 # proxy active or not
 enabled='false'
 
@@ -124,6 +130,13 @@ EOF
 	# read configfile
 	logger -p user.notice -t $log_tag "reading configuration file '$conf'"
 	source "$conf"
+
+	# check is network is unmanaged
+	if [ "$managed" != 'true' -a "$managed" != '1' -a "$managed" != 'yes' ]
+	then
+		logger -p user.notice -t $log_tag "proxy configuation handling skipped for unmanaged network '$networkID'"
+		exit 0
+	fi
 
 	# select mode using enabled value
 	logger -p user.notice -t $log_tag "selecting mode"
