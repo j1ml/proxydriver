@@ -84,6 +84,9 @@ then
 # proxy active or not
 enabled='false'
 
+# change proxy details only for environment
+only_env='false'
+
 # proxy configuration is given by HTTP proxy auto-config (PAC)
 # if used, remove comment char '#' at begin of the line
 # autoconfig_url=''
@@ -196,12 +199,14 @@ EOF
 	#	sleep 15
 	#fi
 
-	machineid=$(dbus-uuidgen --get)
-	for user in `users | tr ' ' '\n' | sort --unique`
-	do
-		logger -p user.notice -t $log_tag "setting configuration for '$user'"
+	if [ "$only_env" == 'false' -o "$only_env" == '0' -o "$only_env" == 'no' ]
+	then
+		machineid=$(dbus-uuidgen --get)
+		for user in `users | tr ' ' '\n' | sort --unique`
+		do
+			logger -p user.notice -t $log_tag "setting configuration for '$user'"
 
-		cat <<EOS | su -l "$user"
+			cat <<EOS | su -l "$user"
 export \$(DISPLAY=':0.0' dbus-launch --autolaunch="$machineid")
 
 # active or not
@@ -262,7 +267,10 @@ kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Scri
 # When you modify kioslaverc, you need to tell KIO.
 dbus-send --type=signal /KIO/Scheduler org.kde.KIO.Scheduler.reparseSlaveConfiguration string:''
 EOS
-	done
+		done
+	else
+		logger -p user.notice -t $log_tag "skipped GNOME/KDE configuration"
+	fi
 
 	# setup shell variables
 	# this script should be called from /etc/bash.bashrc
