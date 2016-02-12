@@ -216,7 +216,7 @@ gconftool-2 --type string --set /system/http_proxy/host "$proxy"
 gsettings set org.gnome.system.proxy.http host '"$proxy"'
 gconftool-2 --type int --set /system/http_proxy/port "$port"
 gsettings set org.gnome.system.proxy.http port "$port"
-kwriteconfig --file kioslaverc --group 'Proxy Settings' --key httpProxy "http://${proxy}:${port}/"
+kwriteconfig --file kioslaverc --group 'Proxy Settings' --key httpProxy "http://${proxy} ${port}/"
 
 gconftool-2 --type bool --set /system/http_proxy/use_same_proxy "$same"
 gsettings set org.gnome.system.proxy use-same-proxy "$same"
@@ -226,19 +226,19 @@ gconftool-2 --type string --set /system/proxy/secure_host "$https_proxy"
 gsettings set org.gnome.system.proxy.https host '"$https_proxy"'
 gconftool-2 --type int --set /system/proxy/secure_port "$https_port"
 gsettings set org.gnome.system.proxy.https port "$https_port"
-kwriteconfig --file kioslaverc --group 'Proxy Settings' --key httpsProxy "http://${https_proxy}:${https_port}/"
+kwriteconfig --file kioslaverc --group 'Proxy Settings' --key httpsProxy "http://${https_proxy} ${https_port}/"
 
 gconftool-2 --type string --set /system/proxy/ftp_host "$ftp_proxy"
 gsettings set org.gnome.system.proxy.ftp host '"$ftp_proxy"'
 gconftool-2 --type int --set /system/proxy/ftp_port "$ftp_port"
 gsettings set org.gnome.system.proxy.ftp port "$ftp_port"
-kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ftpProxy "ftp://${ftp_proxy}:${ftp_port}/"
+kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ftpProxy "ftp://${ftp_proxy} ${ftp_port}/"
 
 gconftool-2 --type string --set /system/proxy/socks_host "$socks_proxy"
 gsettings set org.gnome.system.proxy.socks host '"$socks_proxy"'
 gconftool-2 --type int --set /system/proxy/socks_port "$socks_port"
 gsettings set org.gnome.system.proxy.socks port "$socks_port"
-kwriteconfig --file kioslaverc --group 'Proxy Settings' --key socksProxy "http://${socks_proxy}:${socks_port}/"
+kwriteconfig --file kioslaverc --group 'Proxy Settings' --key socksProxy "http://${socks_proxy} ${socks_port}/"
 
 # authentication
 gconftool-2 --type bool --set /system/http_proxy/use_authentication "$auth"
