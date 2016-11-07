@@ -47,11 +47,8 @@ then
 	
 	if type -P nmcli &>/dev/null
 	then
-		# retrieve connection/vpn name
-		networkID=`nmcli -t -f name,device,type con show | \
-			awk -F':' "BEGIN { device=\"$1\"; event=\"$2\" } \
-				event == \"up\" && \\$2 == device && \\$3 != \"vpn\" { print \\$1 } \
-				event == \"vpn-up\" && \\$3 == \"vpn\" { print \"vpn_\" \\$1 }"`
+        ## working with: nmcli tool, version 1.4.2
+        networkID=`nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d':' -f2`
 	else
 		# try ESSID if nmcli is not installed
 		logger -p user.notice -t $log_tag "nmcli not detected, will use essid"
